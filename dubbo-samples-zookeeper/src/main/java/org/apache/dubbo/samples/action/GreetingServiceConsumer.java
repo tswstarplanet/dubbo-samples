@@ -19,14 +19,15 @@
 
 package org.apache.dubbo.samples.action;
 
-import com.alibaba.dubbo.config.annotation.Reference;
+import org.apache.dubbo.config.annotation.Reference;
 import org.apache.dubbo.samples.api.GreetingService;
+
 import org.springframework.stereotype.Component;
 
 @Component("annotatedConsumer")
 public class GreetingServiceConsumer {
 
-    @Reference
+    @Reference(version = "1.0.0")
     private GreetingService greetingService;
 
     public String doSayHello(String name) {

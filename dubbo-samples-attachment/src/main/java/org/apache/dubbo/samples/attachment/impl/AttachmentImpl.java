@@ -19,21 +19,25 @@
 
 package org.apache.dubbo.samples.attachment.impl;
 
+import org.apache.dubbo.rpc.RpcContext;
+import org.apache.dubbo.samples.attachment.api.AttachmentService;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import com.alibaba.dubbo.rpc.RpcContext;
-import org.apache.dubbo.samples.attachment.api.AttachmentService;
 
-
-public class AttachmentImpl implements AttachmentService{
+public class AttachmentImpl implements AttachmentService {
 
     public String sayHello(String name) {
+        RpcContext context = RpcContext.getContext();
 
-        String consumerName = RpcContext.getContext().getAttachment("name");  //the attachment will be remove after this
-        System.out.println("receive attachment index: " + consumerName);
-        System.out.println("[" + new SimpleDateFormat("HH:mm:ss").format(new Date()) + "] Hello " + name + ", request from consumer: " + RpcContext
-            .getContext().getRemoteAddress());
-        return "Hello " + name + ", response from provider: " + RpcContext.getContext().getLocalAddress();
+        // the attachment will be remove after this
+        String index = context.getAttachment("index");
+        System.out.println("receive attachment index: " + index);
+
+        System.out.println("[" + new SimpleDateFormat("HH:mm:ss").format(new Date()) + "] Hello " + name +
+                ", request from consumer: " + context.getRemoteAddress());
+        return "Hello " + name + ", response from provider: " + context.getLocalAddress() +
+                ", attachment - index: " + index;
     }
 }

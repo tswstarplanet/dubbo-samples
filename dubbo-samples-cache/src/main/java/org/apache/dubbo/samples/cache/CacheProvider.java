@@ -21,16 +21,17 @@ package org.apache.dubbo.samples.cache;
 
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-/**
- * CacheProvider
- */
+import java.util.concurrent.CountDownLatch;
+
 public class CacheProvider {
 
     public static void main(String[] args) throws Exception {
         new EmbeddedZooKeeper(2181, false).start();
-        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(new String[]{"spring/cache-provider.xml"});
-        context.start();
-        System.in.read();
-    }
 
+        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("spring/cache-provider.xml");
+        context.start();
+
+        System.out.println("dubbo service started");
+        new CountDownLatch(1).await();
+    }
 }

@@ -17,12 +17,14 @@
 
 package org.apache.dubbo.samples.mock.api;
 
-import org.apache.dubbo.samples.mock.api.DemoService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-public class DemoServiceMock implements DemoService{
+public class DemoServiceMock implements DemoService {
+    private static Logger logger = LoggerFactory.getLogger(DemoServiceMock.class);
 
     public String sayHello(String name) {
-        System.out.println("local mock Impl");
+        logger.warn("about to execute mock: " + DemoServiceMock.class.getSimpleName());
         return "mock " + name;
     }
 }

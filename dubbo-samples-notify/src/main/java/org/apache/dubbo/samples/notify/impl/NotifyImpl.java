@@ -19,21 +19,24 @@
 
 package org.apache.dubbo.samples.notify.impl;
 
+import org.apache.dubbo.samples.notify.api.Notify;
+
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.dubbo.samples.notify.api.Notify;
+public class NotifyImpl implements Notify {
 
-public class NotifyImpl implements Notify{
+    public Map<Integer, Object> ret = new HashMap<>();
 
-    public Map<Integer, String> ret = new HashMap<Integer, String>();
-
-    public void onreturn(String name, int id) {
+    @Override
+    public void onReturn(String name, int id) {
         ret.put(id, name);
-        System.out.println("onreturn: " + name);
+        System.out.println("onReturn: " + name);
     }
 
-    public void onthrow(Throwable ex, String name, int id) {
-        System.out.println("onthrow: " + name);
+    @Override
+    public void onThrow(Throwable ex, int id) {
+        ret.put(id, ex);
+        System.out.println("onThrow: " + ex);
     }
 }

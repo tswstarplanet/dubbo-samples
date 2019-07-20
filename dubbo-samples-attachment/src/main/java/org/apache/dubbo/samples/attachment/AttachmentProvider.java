@@ -21,15 +21,17 @@ package org.apache.dubbo.samples.attachment;
 
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import java.util.concurrent.CountDownLatch;
+
 
 public class AttachmentProvider {
 
-    public static void main(String[] args) throws Exception{
+    public static void main(String[] args) throws Exception {
         new EmbeddedZooKeeper(2181, false).start();
-        System.setProperty("java.net.preferIPv4Stack", "true");
-        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(new String[]{"META-INF/spring/attachment-provider.xml"});
+        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("spring/attachment-provider.xml");
         context.start();
 
-        System.in.read(); // press any key to exit
+        System.out.println("dubbo service started.");
+        new CountDownLatch(1).await();
     }
 }

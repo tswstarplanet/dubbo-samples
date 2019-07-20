@@ -22,7 +22,7 @@ package org.apache.dubbo.samples.notify.api;
 
 public interface Notify {
 
-    void onreturn(String name, int id);
+    void onReturn(String name, int id);
 
-    void onthrow(Throwable ex, String name, int id);
+    void onThrow(Throwable ex, int id);
 }
